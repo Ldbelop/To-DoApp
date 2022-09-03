@@ -9,7 +9,7 @@ export function TaskForm({ taskValue, setTask, onSubmitHandler, buttonValue }){
     }
 
     return (
-        <form onSubmit={onSubmitHandler} className="flex flex-col items-center w-full h-[90%] mt-[2px]">
+        <form onSubmit={onSubmitHandler} className="flex flex-col items-center w-full h-[90%]">
             <TaskInput value={taskValue} onChangeHandler={onChangeHandler} id="title" taskTitle="TITULO" taskType="text" taskPlaceHolder="Título de la tarea"/>
             <TaskInput value={taskValue} onChangeHandler={onChangeHandler} id="date" taskTitle="FECHA" taskType="date"/>
             <TaskInput value={taskValue} onChangeHandler={onChangeHandler} id="description" taskTitle="DESCRIPCIÓN" taskType="textarea" taskPlaceHolder="Descripción de la tarea"/>

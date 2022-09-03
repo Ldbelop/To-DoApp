@@ -9,7 +9,7 @@
 
 
 #scrollbar::-webkit-scrollbar-thumb {
-    background-color: #645966;
+    background-color: #b3a3ae;
     border-radius: 20px;     
-    border: 1px solid #ffa3c8;
+    /* border: 1px solid #ffa3c8; */
   }

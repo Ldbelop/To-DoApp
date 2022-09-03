@@ -10,9 +10,9 @@ module.exports = {
       'white': "#FFFFFF",
       'black': "#000000",
       'cottonrosey': "#fffafc",
-      'roseybtn': "#ffa3c8",
-      'buttongreeny': "#d5ded7",
-      'buttonreddy': "#e2b8b7"
+      'roseybtn': "#fba9b6",
+      'buttongreeny': "#aae3c8",
+      'buttonreddy': "#fbb2be"
     },
     fontFamily:{
       Barlow: ['Barlow', 'sans-serif'],

@@ -24,6 +24,7 @@ function App() {
 
   const [wantsToUpdate, setWantsToUpdate] = useState(false)
   const [buttonValue, setButtonValue] = useState("ENVÍAR")
+  const [error, setError] = useState()
 
   function randomId(){
     return Math.random().toString(20).substr(2)
@@ -51,29 +52,35 @@ function App() {
 
   function onSubmitHandler(event){
     event.preventDefault()
-    setTask(currentTask => ({...currentTask, id: randomId()}))
-    if(taskArray.length == 0 && wantsToUpdate == false){
-      setTaskArray([task])
+    if ([task.title, task.date, task.description].includes("")){
+      setError(true)
     }
-    
-    else if(wantsToUpdate == false){
-      setTaskArray(currentArray => [...currentArray, task])
-    }
-    else if(wantsToUpdate == true){
-      
-      let updatedTaskArray = taskArray.map((taskObje) => taskObje.id === task.id ? task : taskObje);
-      setTaskArray(updatedTaskArray)
-      setWantsToUpdate(false)
-      setButtonValue("ENVÍAR")
-    }
+    else{
+        setError(false)
+        setTask(currentTask => ({...currentTask, id: randomId()}))
+        if(taskArray.length == 0 && wantsToUpdate == false){
+          setTaskArray([task])
+        }
+        
+        else if(wantsToUpdate == false){
+          setTaskArray(currentArray => [...currentArray, task])
+        }
+        else if(wantsToUpdate == true){
+          
+          let updatedTaskArray = taskArray.map((taskObje) => taskObje.id === task.id ? task : taskObje);
+          setTaskArray(updatedTaskArray)
+          setWantsToUpdate(false)
+          setButtonValue("ENVÍAR")
+        }
 
-    console.log(taskArray)
-    setTask({
-    title: "",
-    date: "",
-    description: "",
-    id: randomId()
-  })
+        console.log(taskArray)
+        setTask({
+        title: "",
+        date: "",
+        description: "",
+        id: randomId()
+      })
+    }
 }
 
   return <>
@@ -84,7 +91,7 @@ function App() {
       App
     </h1>
     <div className='flex justify-around h-[85%]'>
-      <TaskCreator taskValue={task} setTask={setTask} onSubmitHandler={onSubmitHandler} buttonValue={buttonValue}/>
+      <TaskCreator taskValue={task} setTask={setTask} onSubmitHandler={onSubmitHandler} buttonValue={buttonValue} errorValue={error} setError={setError}/>
       <PendingTask setTask={setTask} taskArray={taskArray} onClickHandler={onClickHandler}/>
     </div>
   </>
