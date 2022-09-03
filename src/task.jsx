@@ -1,8 +1,8 @@
 import React from "react";
 
 export function Task({ title, description, date, id, onClickHandler}){
-    return <form onClick={onClickHandler}  className="mt-[15px] h-[30%] w-[90%]">
-        <ul className="border border-roseyred first-letter rounded-[20px] bg-roseybg h-[100%] w-[100%] flex flex-col items-center justify-center shadow-[0px_0px_1.5px_0px_rgba(0,0,0,0.75)]">
+    return <form onClick={onClickHandler}  className="h-[133px] w-[95%] mb-[50px]">
+        <ul className="shadow-[0px_0px_4px_0px_#810034] first-letter rounded-[20px] bg-roseybg h-[140%] w-[100%] flex flex-col items-center justify-center">
             <div className="w-[90%] h-[55%]">
                 <li className="font-Poppins text-[17px]"><span className="text-roseywineyred font-semibold">Título: </span>{title}</li>
                 <li className="font-Poppins text-[17px]"><span className="text-roseywineyred font-semibold">Descripción: </span>{description}</li>

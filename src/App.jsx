@@ -12,16 +12,22 @@ function App() {
     id: 0
   })
 
-  const [taskArray, setTaskArray] = useState([])
-
-
-
-  const [wantsToUpdate, setWantsToUpdate] = useState(false)
+  const [taskArray, setTaskArray] = useState(() => {
+    const saved = localStorage.getItem("Array")
+    const initialValue = JSON.parse(saved);
+    return initialValue || [];
+  })
 
   useEffect(() => {
-    localStorage.setItem('llave', JSON.stringify(taskArray))
+    localStorage.setItem('Array', JSON.stringify(taskArray))
   }, [taskArray]);
 
+  const [wantsToUpdate, setWantsToUpdate] = useState(false)
+  const [buttonValue, setButtonValue] = useState("ENVÍAR")
+
+  function randomId(){
+    return Math.random().toString(20).substr(2)
+  }
 
   function onClickHandler(event){
     event.preventDefault()
@@ -31,9 +37,11 @@ function App() {
         if(respuesta){
           const auxNewArray = taskArray.filter((task) => task.id != event.target.id)
           setTaskArray(auxNewArray)
+          localStorage.setItem('llave', JSON.stringify(taskArray))
         }
     }
     else if(event.target.value == "update"){
+        setButtonValue("ACTUALIZAR")
         let taskToUpdate = taskArray.filter((task) => task.id == event.target.id);
         taskToUpdate = taskToUpdate[0]
         setTask(taskToUpdate)
@@ -43,22 +51,28 @@ function App() {
 
   function onSubmitHandler(event){
     event.preventDefault()
-    setTask(currentTask => ({...currentTask, id: parseInt([currentTask.id])+ 1}))
-    if(wantsToUpdate == false){
+    setTask(currentTask => ({...currentTask, id: randomId()}))
+    if(taskArray.length == 0 && wantsToUpdate == false){
+      setTaskArray([task])
+    }
+    
+    else if(wantsToUpdate == false){
       setTaskArray(currentArray => [...currentArray, task])
     }
     else if(wantsToUpdate == true){
+      
       let updatedTaskArray = taskArray.map((taskObje) => taskObje.id === task.id ? task : taskObje);
-
       setTaskArray(updatedTaskArray)
       setWantsToUpdate(false)
+      setButtonValue("ENVÍAR")
     }
 
+    console.log(taskArray)
     setTask({
     title: "",
     date: "",
     description: "",
-    id: 0
+    id: randomId()
   })
 }
 
@@ -70,7 +84,7 @@ function App() {
       App
     </h1>
     <div className='flex justify-around h-[85%]'>
-      <TaskCreator taskValue={task} setTask={setTask} onSubmitHandler={onSubmitHandler}/>
+      <TaskCreator taskValue={task} setTask={setTask} onSubmitHandler={onSubmitHandler} buttonValue={buttonValue}/>
       <PendingTask setTask={setTask} taskArray={taskArray} onClickHandler={onClickHandler}/>
     </div>
   </>
